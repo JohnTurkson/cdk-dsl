@@ -1,5 +1,6 @@
 package com.johnturkson.dsl.examples
 
+import software.amazon.awscdk.CfnOutput
 import software.amazon.awscdk.Stack
 import software.amazon.awscdk.StackProps
 import software.amazon.awscdk.services.lambda.*
@@ -19,11 +20,12 @@ class ExampleStack(
             .handler("index.main")
             .code(Code.fromInline(code))
             .build()
-        function.addFunctionUrl(
+        val addFunctionUrl = function.addFunctionUrl(
             FunctionUrlOptions.builder()
                 .authType(FunctionUrlAuthType.NONE)
                 .build()
         )
+        CfnOutput.Builder.create(this, "ExampleFunctionUrl").value(addFunctionUrl.url).build()
         val bucket = Bucket.Builder.create(this, "ExampleBucket").build()
     }
 }
