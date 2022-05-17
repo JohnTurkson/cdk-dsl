@@ -11,5 +11,5 @@ dependencies {
 }
 
 application {
-    mainClass.set("ExampleAppKt")
+    mainClass.set("com.johnturkson.dsl.examples.ExampleAppKt")
 }

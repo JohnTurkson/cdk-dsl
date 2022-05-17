@@ -1,3 +1,5 @@
+package com.johnturkson.dsl.examples
+
 import software.amazon.awscdk.App
 
 fun main() {
