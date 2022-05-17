@@ -4,6 +4,6 @@ import software.amazon.awscdk.App
 
 fun main() {
     val app = App()
-    ExampleStack(app, "Stack")
+    ExampleStack(app, "ExampleStack")
     app.synth()
 }
