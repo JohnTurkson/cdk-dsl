@@ -1,4 +1,4 @@
-package com.johnturkson.dsl.examples
+package com.johnturkson.cdk.dsl.examples
 
 import software.amazon.awscdk.App
 
