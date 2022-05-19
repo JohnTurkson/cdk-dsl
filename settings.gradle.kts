@@ -16,4 +16,5 @@ dependencyResolutionManagement {
 rootProject.name = "cdk-dsl"
 
 include(":dsl")
+include(":codegen")
 include(":examples")

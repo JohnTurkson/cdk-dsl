@@ -7,7 +7,7 @@ import software.amazon.awscdk.services.lambda.*
 import software.amazon.awscdk.services.lambda.Function
 import software.constructs.Construct
 
-class ExampleStack(
+class ExampleCdkStack(
     parent: Construct,
     name: String,
     props: StackProps? = null,
