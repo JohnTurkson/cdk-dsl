@@ -31,4 +31,11 @@ data class StackBuilder(var name: String? = null) {
         functions += builder
         return builder
     }
+    
+    fun Bucket(id: String? = null, create: BucketBuilder.() -> Unit): BucketBuilder {
+        val builder = BucketBuilder(id)
+        builder.create()
+        buckets += builder
+        return builder
+    }
 }

@@ -3,6 +3,7 @@ package com.johnturkson.cdk.dsl.examples
 import com.johnturkson.cdk.dsl.App
 import com.johnturkson.cdk.dsl.Function
 import com.johnturkson.cdk.dsl.Stack
+import com.johnturkson.cdk.dsl.builders.StackBuilder
 import com.johnturkson.cdk.dsl.exported.ExportedApp
 import com.johnturkson.cdk.dsl.extensions.import
 import kotlinx.serialization.json.Json
@@ -39,9 +40,9 @@ fun main() {
     // app.synth()
 
     // println(Json.encodeToString(ExportedApp.serializer(), app.export()))
-    
-    test2()
-    // test3()
+
+    // test2()
+    test3()
 }
 
 fun test() {
@@ -51,7 +52,7 @@ fun test() {
     val function = Function {
 
     }
-    
+
     stack.import(function)
 
     // stack[function, function]
@@ -89,20 +90,24 @@ fun test2() {
         name = "Test2App"
         import(stack)
     }
-    
+
     println(Json.encodeToString(ExportedApp.serializer(), app.export()))
 }
 
 fun test3() {
     val stack = Stack {
-        val function = Function {
+        Function {
+
+        }
+        Bucket {
             
         }
     }
-    
-    
+
     val app = software.amazon.awscdk.App()
     app.import(stack)
+
+    println(Json { encodeDefaults = true }.encodeToString(StackBuilder.serializer(), stack))
 }
 
 // infix fun Stack.import(function: FunctionBuilder) {
