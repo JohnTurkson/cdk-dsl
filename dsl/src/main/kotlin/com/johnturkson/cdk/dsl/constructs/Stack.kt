@@ -5,8 +5,8 @@ import com.johnturkson.cdk.dsl.exported.ExportedStack
 class Stack internal constructor(
     app: App,
     val name: String,
-    val functions: MutableSet<Function> = mutableSetOf(),
-    val buckets: MutableSet<Bucket> = mutableSetOf(),
+    internal val functions: MutableSet<Function> = mutableSetOf(),
+    internal val buckets: MutableSet<Bucket> = mutableSetOf(),
 ) : software.amazon.awscdk.Stack(app, name) {
     fun export(): ExportedStack {
         return ExportedStack(

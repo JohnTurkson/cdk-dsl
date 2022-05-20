@@ -4,7 +4,7 @@ import com.johnturkson.cdk.dsl.exported.ExportedFunction
 import software.amazon.awscdk.services.lambda.FunctionProps
 
 class Function internal constructor(
-    val stack: Stack,
+    stack: Stack,
     val id: String,
 ) : software.amazon.awscdk.services.lambda.Function(stack, id, FunctionProps.builder().build()) {
     fun export(): ExportedFunction {
