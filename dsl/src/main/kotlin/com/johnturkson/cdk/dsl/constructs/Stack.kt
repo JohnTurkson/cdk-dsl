@@ -3,7 +3,7 @@ package com.johnturkson.cdk.dsl.constructs
 import com.johnturkson.cdk.dsl.exported.ExportedStack
 
 class Stack internal constructor(
-    val app: App,
+    app: App,
     val name: String,
     val functions: MutableSet<Function> = mutableSetOf(),
     val buckets: MutableSet<Bucket> = mutableSetOf(),

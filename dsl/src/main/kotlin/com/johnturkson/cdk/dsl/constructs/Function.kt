@@ -6,11 +6,7 @@ import software.amazon.awscdk.services.lambda.FunctionProps
 class Function internal constructor(
     val stack: Stack,
     val id: String,
-) {
-    fun build(): software.amazon.awscdk.services.lambda.Function {
-        return software.amazon.awscdk.services.lambda.Function(stack, id, FunctionProps.builder().build())
-    }
-
+) : software.amazon.awscdk.services.lambda.Function(stack, id, FunctionProps.builder().build()) {
     fun export(): ExportedFunction {
         return ExportedFunction(id)
     }
