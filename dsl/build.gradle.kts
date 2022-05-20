@@ -10,6 +10,7 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     antlr("org.antlr:antlr4:4.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     implementation("software.amazon.awscdk:aws-cdk-lib:2.24.1")
 }
 

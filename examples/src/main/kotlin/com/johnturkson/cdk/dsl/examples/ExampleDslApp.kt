@@ -3,52 +3,59 @@ package com.johnturkson.cdk.dsl.examples
 import com.johnturkson.cdk.dsl.App
 import com.johnturkson.cdk.dsl.Function
 import com.johnturkson.cdk.dsl.Stack
+import com.johnturkson.cdk.dsl.exported.ExportedApp
 import com.johnturkson.cdk.dsl.extensions.import
-import software.amazon.awscdk.App
+import kotlinx.serialization.json.Json
 import software.amazon.awscdk.Stack
 import software.amazon.awscdk.services.s3.Bucket
 
 fun main() {
-    val app = App("ExampleApp") {
-        name = "ExampleAppOverride"
+    // val app = App("ExampleApp") {
+    //     name = "ExampleAppOverride"
+    //
+    //     // val stack = Stack("ExampleFunction") {
+    //     //     name = "ExampleStackOverride"
+    //     //
+    //     //     val function = Function("ExampleFunction") {
+    //     //         id = "ExampleFunctionOverride"
+    //     //     }
+    //     // }
+    // }
+    //
+    // val stack = Stack(app, "ExampleStack") {
+    //     name = "ExampleStackOverride"
+    //
+    //     val function = Function("ExampleFunction") {
+    //         id = "ExampleFunctionOverride"
+    //     }
+    // }
+    //
+    // val function = Function(stack, "ExampleFunction") {
+    //     id = "ExampleFunctionOverride"
+    // }
+    //
+    // Bucket.Builder.create(stack, "Bucket").build()
 
-        val stack = Stack("ExampleFunction") {
-            name = "ExampleStackOverride"
+    // app.synth()
 
-            val function = Function("ExampleFunction") {
-                id = "ExampleFunctionOverride"
-            }
-        }
-    }
-
-    val stack = Stack(app, "ExampleStack") {
-        name = "ExampleStackOverride"
-
-        val function = Function("ExampleFunction") {
-            id = "ExampleFunctionOverride"
-        }
-    }
-
-    val function = Function(stack, "ExampleFunction") {
-        id = "ExampleFunctionOverride"
-    }
-
-    Bucket.Builder.create(stack, "Bucket").build()
-
-    app.synth()
+    // println(Json.encodeToString(ExportedApp.serializer(), app.export()))
+    
+    test2()
+    // test3()
 }
 
 fun test() {
-    val app = App()
+    val app = software.amazon.awscdk.App()
     val stack = Stack(app, "")
 
     val function = Function {
 
     }
+    
+    stack.import(function)
 
     // stack[function, function]
 
-    stack.import(function, function, function)
     // stack.import[function, function, function]
     // stack.import()
 
@@ -60,11 +67,11 @@ fun test() {
 
 fun test2() {
 
-    val function = Function {
+    val function = Function("Test2Function") {
 
     }
 
-    val stack = Stack {
+    val stack = Stack("Test2Stack") {
         // stack import function
         // import[function]
         // import(function)
@@ -75,22 +82,26 @@ fun test2() {
         //     function3 // difficult to disallow this syntax
         // }
 
-        import(function, function)
+        import(function)
     }
+
     val app = App {
+        name = "Test2App"
         import(stack)
     }
+    
+    println(Json.encodeToString(ExportedApp.serializer(), app.export()))
 }
 
 fun test3() {
     val stack = Stack {
-        Function {
+        val function = Function {
             
         }
     }
     
     
-    val app = App()
+    val app = software.amazon.awscdk.App()
     app.import(stack)
 }
 

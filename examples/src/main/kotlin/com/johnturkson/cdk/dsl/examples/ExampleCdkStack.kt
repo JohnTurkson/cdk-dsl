@@ -5,6 +5,7 @@ import software.amazon.awscdk.Stack
 import software.amazon.awscdk.StackProps
 import software.amazon.awscdk.services.lambda.*
 import software.amazon.awscdk.services.lambda.Function
+import software.amazon.awscdk.services.s3.Bucket
 import software.constructs.Construct
 
 class ExampleCdkStack(

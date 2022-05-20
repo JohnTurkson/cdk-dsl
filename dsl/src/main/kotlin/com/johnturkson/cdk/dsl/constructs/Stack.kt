@@ -1,7 +1,18 @@
 package com.johnturkson.cdk.dsl.constructs
 
-data class Stack internal constructor(
-    val parent: App,
+import com.johnturkson.cdk.dsl.exported.ExportedStack
+
+class Stack internal constructor(
+    val app: App,
     val name: String,
-    val functions: MutableSet<Function>,
-) : software.amazon.awscdk.Stack(parent, name)
+    val functions: MutableSet<Function> = mutableSetOf(),
+    val buckets: MutableSet<Bucket> = mutableSetOf(),
+) : software.amazon.awscdk.Stack(app, name) {
+    fun export(): ExportedStack {
+        return ExportedStack(
+            name,
+            functions.map { function -> function.export() }.toSet(),
+            buckets.map { bucket -> bucket.export() }.toSet()
+        )
+    }
+}

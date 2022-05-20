@@ -1,8 +1,17 @@
 package com.johnturkson.cdk.dsl.constructs
 
+import com.johnturkson.cdk.dsl.exported.ExportedFunction
 import software.amazon.awscdk.services.lambda.FunctionProps
 
-data class Function internal constructor(
-    val parent: Stack,
+class Function internal constructor(
+    val stack: Stack,
     val id: String,
-) : software.amazon.awscdk.services.lambda.Function(parent, id, FunctionProps.builder().build())
+) {
+    fun build(): software.amazon.awscdk.services.lambda.Function {
+        return software.amazon.awscdk.services.lambda.Function(stack, id, FunctionProps.builder().build())
+    }
+
+    fun export(): ExportedFunction {
+        return ExportedFunction(id)
+    }
+}

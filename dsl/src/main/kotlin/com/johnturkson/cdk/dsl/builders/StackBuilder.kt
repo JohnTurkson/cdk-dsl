@@ -2,32 +2,33 @@ package com.johnturkson.cdk.dsl.builders
 
 import com.johnturkson.cdk.dsl.annotations.CdkDslMarker
 import com.johnturkson.cdk.dsl.constructs.App
-import com.johnturkson.cdk.dsl.constructs.Function
 import com.johnturkson.cdk.dsl.constructs.Stack
+import kotlinx.serialization.Serializable
 
+@Serializable
 @CdkDslMarker
 data class StackBuilder(var name: String? = null) {
-    internal var app: App? = null
-    internal var parent: AppBuilder? = null
-    internal val functions: MutableSet<FunctionBuilder> = mutableSetOf()
+    private val functions: MutableSet<FunctionBuilder> = mutableSetOf()
+    private val buckets: MutableSet<BucketBuilder> = mutableSetOf()
 
-    internal fun build(): Stack {
-        val app = app ?: parent?.build() ?: throw Exception()
+    internal fun build(app: App): Stack {
         val name = name ?: throw Exception()
-        val functions = functions.map { function -> function.build() }.toMutableSet()
-        return Stack(app, name, functions)
+        val stack = Stack(app, name)
+        val functions = functions.map { function -> function.build(stack) }.toMutableSet()
+        val buckets = buckets.map { bucket -> bucket.build(stack) }.toMutableSet()
+        stack.functions += functions
+        stack.buckets += buckets
+        return stack
     }
-    
+
     fun import(vararg items: FunctionBuilder) {
         functions += items
     }
 
-    fun Function(id: String? = null, create: FunctionBuilder.() -> Unit): Function {
+    fun Function(id: String? = null, create: FunctionBuilder.() -> Unit): FunctionBuilder {
         val builder = FunctionBuilder(id)
-        builder.parent = this
         builder.create()
-        val function = builder.build()
         functions += builder
-        return function
+        return builder
     }
 }

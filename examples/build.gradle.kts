@@ -11,6 +11,7 @@ dependencies {
     implementation(project(":dsl"))
     implementation(project(":codegen"))
     ksp(project(":codegen"))
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     implementation("software.amazon.awscdk:aws-cdk-lib:2.24.1")
 }
 
